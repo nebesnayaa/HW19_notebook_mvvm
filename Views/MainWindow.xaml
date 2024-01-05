@@ -1,0 +1,79 @@
+﻿<Window x:Class="HW19_mvvm_notebook.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HW19_mvvm_notebook"
+        mc:Ignorable="d"
+        Title="Notebook" Height="450" Width="600"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="#FF2B905D"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Margin" Value="20 0"/>
+            <Setter Property="Foreground" Value="#FF2A7547"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border CornerRadius="10" Background="#FFAAFFDA">
+                            <ScrollViewer>
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#FF29A659"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="7" BorderBrush="#FF65BD94" BorderThickness="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Наявні резюме:"></Label>
+        <ListBox Name="List" Grid.Row="1" ItemsSource="{Binding People}"></ListBox>
+
+        <Grid Grid.Row="2" Margin="0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Add" Command="{Binding AddCommand}" />
+            <Button Content="Edit" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=List, Path=SelectedItem}" Grid.Column="1"/>
+            <Button Content="Delete" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=List, Path=SelectedItem}" Grid.Column="2"/>
+            <Button Content="Save" Command="{Binding SaveSelectedCommand}" CommandParameter="{Binding ElementName=List, Path=SelectedItem}" Grid.Column="3"/>
+        </Grid>
+    </Grid>
+</Window>
